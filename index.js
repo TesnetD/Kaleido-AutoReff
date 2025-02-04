@@ -3,6 +3,8 @@ import { ethers } from 'ethers';
 import readline from 'readline';
 import fs from 'fs';
 import { HttpsProxyAgent } from 'https-proxy-agent';
+import cfonts from "cfonts";
+import chalk from 'chalk';
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -42,7 +44,17 @@ function getRandomFullName() {
 function getRandomUserAgent() {
     return userAgents[Math.floor(Math.random() * userAgents.length)];
 }
-
+cfonts.say('NT Exhaust', {
+    font: 'block',        // Options: 'block', 'simple', '3d', etc.
+    align: 'center',
+    colors: ['cyan', 'magenta'],
+    background: 'black',
+    letterSpacing: 1,
+    lineHeight: 1,
+    space: true,
+    maxLength: '0',
+  });
+console.log(chalk.green("=== Telegram Channel : NT Exhaust ( @NTExhaust ) ==="))
 rl.question('Enter referral code: ', (referralCode) => {
     rl.question('Enter number of loops: ', (loopCount) => {
         const API_URL = "https://kaleidofinance.xyz/api/testnet/register";
