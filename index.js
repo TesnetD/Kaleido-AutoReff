@@ -44,17 +44,17 @@ function saveAccount(wallet, email) {
     fs.appendFileSync('accounts.txt', accountInfo);
 }
 
-cfonts.say('NT Exhaust', {
+cfonts.say('Sogni Bot', {
     font: 'block',
     align: 'center',
     colors: ['cyan', 'magenta'],
     background: 'black'
 });
-console.log(chalk.green("=== Telegram Channel : NT Exhaust ( @NTExhaust ) ==="));
+console.log(chalk.green("=== Sogni Referral Bot ==="));
 
 rl.question('Enter referral code: ', (referralCode) => {
     rl.question('Enter number of loops: ', (loopCount) => {
-        const API_URL = "https://kaleidofinance.xyz/api/testnet/register";
+        const API_URL = "https://app.sogni.ai/api/register"; // Change this to the actual API URL of Sogni
 
         async function registerUser() {
             for (let i = 0; i < parseInt(loopCount); i++) {
@@ -71,12 +71,9 @@ rl.question('Enter referral code: ', (referralCode) => {
                 const payload = {
                     email,
                     walletAddress: wallet.address,
+                    referralCode: referralCode,  // Using the referral code from input
                     socialTasks: { twitter: true, telegram: true, discord: true },
                     agreedToTerms: true,
-                    referralCode: "",
-                    referralCount: 0,
-                    referralBonus: 0,
-                    xUsername: email.split('@')[0],
                     referredBy: referralCode
                 };
 
@@ -86,7 +83,7 @@ rl.question('Enter referral code: ', (referralCode) => {
                         headers: {
                             'Accept': '*/*',
                             'Content-Type': 'application/json',
-                            'Origin': 'https://kaleidofinance.xyz',
+                            'Origin': 'https://app.sogni.ai',  // Replace this with Sogni's actual origin if necessary
                             'User-Agent': userAgent
                         },
                         body: JSON.stringify(payload),
@@ -100,7 +97,7 @@ rl.question('Enter referral code: ', (referralCode) => {
                         console.log(`❌ Failed with status ${response.status}:`, await response.text());
                     }
                     console.log("Waiting 1 minute before the next referral...");
-                    await new Promise(resolve => setTimeout(resolve, 60000));
+                    await new Promise(resolve => setTimeout(resolve, 60000));  // 1 minute delay
                 } catch (error) {
                     console.error(`❌ Error: ${error.message}`);
                 }
